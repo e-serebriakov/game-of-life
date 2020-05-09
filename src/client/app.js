@@ -1,4 +1,5 @@
 import { calculateState } from './state'
+import { renderGrid } from './grid'
 
 let state = [
   [1, 0, 1, 1, 0],
@@ -9,8 +10,6 @@ let state = [
 ]
 
 const start = () => {
-  console.log('Start')
-
   console.table(state)
 
   const intervalId = setInterval(() => {
@@ -21,9 +20,11 @@ const start = () => {
     renderState(newState)
   }, 1000)
 
-  setTimeout(() => clearInterval(intervalId), 5 * 1000)
+  setTimeout(() => clearInterval(intervalId), 3 * 1000)
 }
 
-const renderState = () => {}
+const renderState = (state) => {
+  renderGrid(state, 50)
+}
 
 start()
