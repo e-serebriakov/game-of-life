@@ -1,0 +1,22 @@
+{
+  "name": "conway-life",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js",
+    "watch": "parcel ./src/public/index.html",
+    "build": "parcel build ./src/public/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^5.16.0",
+    "node-static": "^0.7.11",
+    "parcel-bundler": "^1.12.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
