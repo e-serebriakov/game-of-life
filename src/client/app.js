@@ -2,7 +2,7 @@ import { calculateState } from './state'
 import { renderGrid } from './grid'
 
 let state = [
-  [1, 0, 1, 1, 0],
+  [1, 0, 1, 1, 0], // '10110' 
   [0, 1, 1, 0, 0],
   [0, 0, 0, 1, 0],
   [0, 1, 0, 1, 0],
@@ -10,17 +10,18 @@ let state = [
 ]
 
 const start = () => {
-  console.table(state)
+  let stateCopy = JSON.parse(JSON.stringify(state))
 
-  const intervalId = setInterval(() => {
-    const newState = calculateState(state)
+  renderState(stateCopy)
 
-    console.table(newState)
+  let timerId = setTimeout(function tick() {
+    stateCopy = calculateState(stateCopy)
 
-    renderState(newState)
+    renderState(stateCopy)
+    timerId = setTimeout(tick, 1000)
   }, 1000)
 
-  setTimeout(() => clearInterval(intervalId), 3 * 1000)
+  setTimeout(() => clearTimeout(timerId), 5 * 1000)
 }
 
 const renderState = (state) => {

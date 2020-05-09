@@ -3,7 +3,7 @@ export const calculateState = (initialState) => {
 
   for (let i = 0; i < initialState.length; i++) {
     for (let j = 0; j < initialState[i].length; j++) {
-      initialState[i][j] = isGoingLive(initialState, i, j) ? 1 : 0
+      state[i][j] = isGoingLive(initialState, i, j) ? 1 : 0
     }
   }
 
@@ -50,7 +50,7 @@ const countNeighbors = (state, x, y) => {
       const neighborCell = state[iPeriodical][jPeriodical]
       const isAlive = neighborCell === 1
 
-      if (isAlive && iPeriodical !== x && jPeriodical !== y) {
+      if (isAlive && !(iPeriodical === x && jPeriodical === y)) {
         neighborsCount += 1
       }
     }

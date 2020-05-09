@@ -7,7 +7,6 @@ const buildGridData = (gridData, cellSize) => {
   let width = cellSize
   let height = cellSize
 	
-  // iterate for rows	
   for (let row = 0; row < gridData.length; row++) {
     data.push(new Array())
 		
