@@ -24,6 +24,6 @@ const start = () => {
   setTimeout(() => clearInterval(intervalId), 5 * 1000)
 }
 
-const renderState = (state) => {}
+const renderState = () => {}
 
 start()
