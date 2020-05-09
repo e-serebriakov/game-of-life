@@ -7,7 +7,7 @@
     "start": "nodemon ./src/server.js",
     "watch": "parcel ./src/public/index.html",
     "build": "parcel build ./src/public/index.html",
-    "eslint": "eslint src/*"
+    "eslint": "eslint src"
   },
   "keywords": [],
   "author": "",
