@@ -1,3 +1,17 @@
+export const generateInitialState = (rowsCount, columnsCount) => {
+  const state = []
+
+  for (let i = 0; i < rowsCount; i++) {
+    state[i] = []
+
+    for (let j = 0; j < columnsCount; j++) {
+      state[i][j] = Math.round(Math.random())
+    } 
+  }
+
+  return state
+}
+
 export const calculateState = (initialState) => {
   const state = JSON.parse(JSON.stringify(initialState))
 

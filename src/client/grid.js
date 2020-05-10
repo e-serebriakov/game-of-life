@@ -16,7 +16,7 @@ const buildGridData = (gridData, cellSize) => {
         y: yPos,
         width,
         height,
-        isAlive: gridData[row][column] === 1
+        isAlive: gridData[row][column] === 1,
       })
 
       xPos += width
@@ -35,24 +35,24 @@ export const renderGrid = (state, cellSize) => {
   const grid = d3.select('#grid')
     .html('')
     .append('svg')
-    .attr('width','510px')
-    .attr('height','510px')
+    .attr('width','100%')
+    .attr('height','100%')
     
   const row = grid.selectAll('.row')
     .data(gridData)
     .enter().append('g')
     .attr('class', 'row')
-    
+
   row.selectAll('.square')
     .data((d) => d)
     .enter().append('rect')
     .attr('class','square')
-    .attr('x', function(d) { return d.x })
-    .attr('y', function(d) { return d.y })
-    .attr('width', function(d) { return d.width })
-    .attr('height', function(d) { return d.height })
+    .attr('x', (d) => d.x)
+    .attr('y', (d) => d.y)
+    .attr('width', (d) => d.width)
+    .attr('height', (d) => d.height)
+    .style('stroke', '#c1c1c1') 
     .style('fill', ({ isAlive }) => {
       return isAlive ? '#000' : '#fff'
     })
-    .style('stroke', '#222') 
 }

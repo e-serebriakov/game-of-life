@@ -1,22 +1,35 @@
-import { calculateState } from './state'
+import * as d3 from 'd3'
+
+import { calculateState, generateInitialState } from './state'
 import { renderGrid } from './grid'
 
-const generateInitialState = (rowsCount, columnsCount) => {
-  const state = []
+const CELL_DEFAULT_SIZE_PX = 25
 
-  for (let i = 0; i < rowsCount; i++) {
-    state[i] = []
+const renderState = (state) => {
+  renderGrid(state, CELL_DEFAULT_SIZE_PX)
+}
 
-    for (let j = 0; j < columnsCount; j++) {
-      state[i][j] = Math.round(Math.random())
-    } 
+const calculateRowsAndColumnsCount = () => {
+  const parentNode = d3.select('#grid').node()
+  const {
+    height,
+    width,
+  } = parentNode.getBoundingClientRect()
+
+  const rowsCount = Math.floor(height / CELL_DEFAULT_SIZE_PX)
+  const columnsCount = Math.floor(width / CELL_DEFAULT_SIZE_PX)
+
+  return {
+    rowsCount,
+    columnsCount,
   }
-
-  return state
 }
 
 const start = () => {
-  let stateCopy = generateInitialState(100, 100)
+  const { rowsCount, columnsCount } = calculateRowsAndColumnsCount()
+
+  let stateCopy = generateInitialState(rowsCount, columnsCount)
+  const interval = 0.5 * 1000
 
   renderState(stateCopy)
 
@@ -24,14 +37,10 @@ const start = () => {
     stateCopy = calculateState(stateCopy)
 
     renderState(stateCopy)
-    timerId = setTimeout(tick, 1000)
-  }, 1000)
+    timerId = setTimeout(tick, interval)
+  }, interval)
 
   setTimeout(() => clearTimeout(timerId), 1 * 60 * 1000)
-}
-
-const renderState = (state) => {
-  renderGrid(state, 10)
 }
 
 start()
