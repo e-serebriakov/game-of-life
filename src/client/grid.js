@@ -49,62 +49,62 @@ export class Grid {
   }
 
   _mount() {
-    const gridSvg = renderGridSvg()
-    this.rowsElements = renderRows(gridSvg, this._generateGridData(this.data, this.cellSize))
-    renderColumns()
+    this._renderGridSvg()
+    this._rows = this._renderRows(this._generateGridData(this.data, this.cellSize))
+    this._renderColumns()
   }
 
   _update() {
-    this.rowsElements = this.rowsElements.data(this._generateGridData(this.data, this.cellSize))
+    this._rows = this._rows.data(this._generateGridData(this.data, this.cellSize))
 
-    renderColumns()
+    this._renderColumns()
   }
-}
 
-export const renderGridSvg = () => {
-  return d3.select('#grid')
-    .attr('class', 'grid')
-    .html('')
-    .append('svg')
-    .attr('width', '100%')
-    .attr('height', '100%')
-}
+  _renderGridSvg() {
+    return d3.select('#grid')
+      .attr('class', 'grid')
+      .html('')
+      .append('svg')
+      .attr('width', '100%')
+      .attr('height', '100%')
+  }
 
-export const renderRows = (gridSvg, gridData) => {
-  return gridSvg
-    .html('')
-    .selectAll('.grid__row')
-    .data(gridData)
-    .enter()
-    .append('g')
-    .attr('class', 'grid__row')
-}
-
-export const renderColumns = () => {
-  const cellCollection = d3
-    .selectAll('.grid__row')
-    .selectAll('.grid__cell')
-    .data((d) => d)
-
-  const isFirstRender = cellCollection.empty()
-
-  if (isFirstRender) {
-    return cellCollection
+  _renderRows(gridData) {
+    return d3.select('#grid svg')
+      .selectAll('.grid__row')
+      .data(gridData)
       .enter()
-      .append('rect')
-      .attr('class', 'grid__cell')
-      .attr('x', (d) => d.x)
-      .attr('y', (d) => d.y)
-      .attr('width', (d) => d.width)
-      .attr('height', (d) => d.height)
-      .style('stroke', '#c1c1c1') 
+      .append('g')
+      .attr('class', 'grid__row')
+  }
+
+  _renderColumns() {
+    const cellCollection = d3
+      .selectAll('.grid__row')
+      .selectAll('.grid__cell')
+      .data((d) => d)
+  
+    const isFirstRender = cellCollection.empty()
+  
+    if (isFirstRender) {
+      return cellCollection
+        .enter()
+        .append('rect')
+        .attr('class', 'grid__cell')
+        .attr('x', (d) => d.x)
+        .attr('y', (d) => d.y)
+        .attr('width', (d) => d.width)
+        .attr('height', (d) => d.height)
+        .style('stroke', '#c1c1c1') 
+        .style('fill', ({ isAlive }) => {
+          return isAlive ? '#000' : '#fff'
+        })
+    }
+  
+    return cellCollection
       .style('fill', ({ isAlive }) => {
         return isAlive ? '#000' : '#fff'
       })
+    
   }
-
-  return cellCollection
-    .style('fill', ({ isAlive }) => {
-      return isAlive ? '#000' : '#fff'
-    })
 }
