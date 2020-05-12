@@ -1,13 +1,10 @@
 import * as d3 from 'd3'
 
 import { calculateState, generateInitialState } from './state'
-import { renderGrid } from './grid'
+import { Grid } from './grid'
 
 const CELL_DEFAULT_SIZE_PX = 25
-
-const renderState = (state) => {
-  renderGrid(state, CELL_DEFAULT_SIZE_PX)
-}
+const UPDATE_INTERVAL_SEC = 0.5 * 1000
 
 const calculateRowsAndColumnsCount = () => {
   const parentNode = d3.select('#grid').node()
@@ -27,20 +24,19 @@ const calculateRowsAndColumnsCount = () => {
 
 const start = () => {
   const { rowsCount, columnsCount } = calculateRowsAndColumnsCount()
-
   let stateCopy = generateInitialState(rowsCount, columnsCount)
-  const interval = 0.5 * 1000
 
-  renderState(stateCopy)
+  const grid = new Grid({ data: stateCopy, cellSize: CELL_DEFAULT_SIZE_PX })
 
   let timerId = setTimeout(function tick() {
     stateCopy = calculateState(stateCopy)
 
-    renderState(stateCopy)
-    timerId = setTimeout(tick, interval)
-  }, interval)
+    grid.setProps({ data: stateCopy })
 
-  setTimeout(() => clearTimeout(timerId), 1 * 60 * 1000)
+    timerId = setTimeout(tick, UPDATE_INTERVAL_SEC)
+  }, UPDATE_INTERVAL_SEC)
+
+  setTimeout(() => clearTimeout(timerId), 5 * 1000)
 }
 
 start()
