@@ -12,7 +12,7 @@ export class Grid {
   }
 
   setProps(props) {
-    Object.entries(props).forEach(([ propName, propValue ]) => {
+    Object.entries(props).forEach(([propName, propValue]) => {
       this[propName] = propValue
     })
 
@@ -61,7 +61,7 @@ export class Grid {
   }
 
   _renderGridSvg() {
-    return d3.select('#grid')
+    return d3.select('#grid2')
       .attr('class', 'grid')
       .html('')
       .append('svg')
@@ -70,7 +70,8 @@ export class Grid {
   }
 
   _renderRows(gridData) {
-    return d3.select('#grid svg')
+    return d3.select('#grid2')
+      .select('#grid2 svg')
       .selectAll('.grid__row')
       .data(gridData)
       .enter()
