@@ -1,7 +1,7 @@
-export type CellState = 0 | 1 
+export type CellState = 0 | 1
 type State = Array<Array<CellState>>
 
-export const generateInitialState = (columnsCount: number, rowsCount: number) => {
+export const generateInitialState = (columnsCount: number, rowsCount: number): State => {
   const state: State = []
 
   for (let i = 0; i < rowsCount; i++) {

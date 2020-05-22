@@ -3,6 +3,6 @@
     "jsx": "react",
     "strict": true
   },
-  "include": ["src/client/**/*"],
-  "exclude": ["src/server.js"]
+  "include": ["src/client/**/*", "src/server"],
+  "exclude": ["src/server/server.js"]
 }

@@ -1,9 +1,8 @@
 import * as React from 'react'
 
 import { calculateState, generateInitialState, CellState } from '../state'
+import { Cell } from './cell/Cell'
 import './Grid.less'
-
-export type LifeStateData = CellState[][];
 
 const calculateRowsAndColumnsCount = (gridWrapperElement: HTMLElement | null, cellSize: number) => {
   if (gridWrapperElement === null) {
@@ -26,10 +25,10 @@ type Props = {
   updatesFrequency: number;
 }
 
-export const Grid: React.FC<Props> = ({ cellSize, updatesFrequency }) => {
+const Grid: React.FC<Props> = ({ cellSize, updatesFrequency }: Props) => {
   const gridWrapperRef = React.useRef(null)
-  const [isPlaying, setIsPlaying] = React.useState<boolean>(true)
-  const [lifeState, setLifeState] = React.useState<LifeStateData>([])
+  const [isPlaying, _setIsPlaying] = React.useState<boolean>(true)
+  const [lifeState, setLifeState] = React.useState<CellState[][]>([])
 
   React.useEffect(() => {
     const rowsColumnsCount = calculateRowsAndColumnsCount(gridWrapperRef.current, cellSize)
@@ -84,24 +83,4 @@ export const Grid: React.FC<Props> = ({ cellSize, updatesFrequency }) => {
   )
 }
 
-type CellProps = {
-  x: number;
-  y: number;
-  size: number;
-  isAlive: CellState;
-}
-
-const Cell: React.FC<CellProps> = React.memo(({ x, y, size, isAlive }) => {
-  return (
-    <rect
-      x={x}
-      y={y}
-      width={size}
-      height={size}
-      stroke="#c1c1c1"
-      strokeWidth="0.25"
-      fill={isAlive === 1 ? '#000' : '#fff'}
-      className="grid__cell"
-    ></rect>
-  )
-})
+export { Grid }
