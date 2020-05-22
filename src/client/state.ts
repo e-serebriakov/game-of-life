@@ -1,18 +1,21 @@
-export const generateInitialState = (rowsCount, columnsCount) => {
-  const state = []
+export type CellState = 0 | 1 
+type State = Array<Array<CellState>>
+
+export const generateInitialState = (columnsCount: number, rowsCount: number) => {
+  const state: State = []
 
   for (let i = 0; i < rowsCount; i++) {
     state[i] = []
 
     for (let j = 0; j < columnsCount; j++) {
-      state[i][j] = Math.round(Math.random())
+      state[i][j] = Math.round(Math.random()) as CellState
     } 
   }
 
   return state
 }
 
-export const calculateState = (initialState) => {
+export const calculateState = (initialState: State): State => {
   const state = JSON.parse(JSON.stringify(initialState))
 
   for (let i = 0; i < initialState.length; i++) {
@@ -24,7 +27,7 @@ export const calculateState = (initialState) => {
   return state
 }
 
-const periodical = (x, sideCapacity) => {
+const periodical = (x: number, sideCapacity: number): number => {
   if (x < 0) {
     return x + sideCapacity
   }
@@ -36,7 +39,7 @@ const periodical = (x, sideCapacity) => {
   return x
 }
 
-const isGoingLive = (state, x, y) =>  {
+const isGoingLive = (state: State, x: number, y: number): boolean =>  {
   const cell = state[x][y]
   const isAlive = cell === 1
   const neighborsCount = countNeighbors(state, x, y)
@@ -48,7 +51,7 @@ const isGoingLive = (state, x, y) =>  {
   return neighborsCount === 3
 }
 
-const countNeighbors = (state, x, y) => {
+const countNeighbors = (state: State, x: number, y: number): number => {
   let neighborsCount = 0
 
   const xFrom = x - 1
