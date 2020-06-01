@@ -6,6 +6,7 @@ type Props = {
   isRunning: boolean;
   onClickPlay: (state: boolean) => void;
   onClickClear: (...args: unknown[]) => void;
+  onClickNext: (...args: unknown[]) => void;
 }
 
 const ControlPanel = (props: Props) => {
@@ -13,6 +14,7 @@ const ControlPanel = (props: Props) => {
     isRunning,
     onClickPlay,
     onClickClear,
+    onClickNext,
   } = props
 
   return (
@@ -28,6 +30,9 @@ const ControlPanel = (props: Props) => {
         onClick={() => onClickPlay(!isRunning)}
       >
         { isRunning ? 'Pause' : 'Play' }
+      </button>
+      <button onClick={onClickNext}>
+        Step forward
       </button>
     </div>
   )

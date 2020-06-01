@@ -66,9 +66,7 @@ const App: React.FC = () => {
     if (isRunning) {
       const timerId = setTimeout(() => {
         if (lifeState.length > 0 ) {
-          const state = calculateState(lifeState)
-    
-          setLifeState(state)
+          stepForward()
         }
       }, UPDATE_INTERVAL_SEC)
   
@@ -77,6 +75,12 @@ const App: React.FC = () => {
       }
     }
   }, [isRunning, lifeState])
+
+  const stepForward = () => {
+    const state = calculateState(lifeState)
+    
+    setLifeState(state)
+  }
 
   const clearState = () => {
     const initialState = generateInitialState(rowsColumnsCount, () => false)
@@ -90,6 +94,7 @@ const App: React.FC = () => {
       <ControlPanel
         onClickPlay={setIsRunning}
         onClickClear={clearState}
+        onClickNext={stepForward}
         isRunning={isRunning}
       />
       <div className="app__grid" ref={gridWrapperRef}>
