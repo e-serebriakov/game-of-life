@@ -7,9 +7,18 @@ type CellProps = {
   y: number;
   size: number;
   isAlive: CellState;
+  onClick: (...arg: unknown[]) => void
 }
 
-const Cell = ({ x, y, size, isAlive }: CellProps) => {
+const Cell = (props: CellProps) => {
+  const {
+    x,
+    y,
+    size,
+    isAlive,
+    onClick,
+  } = props
+
   return (
     <rect
       x={x}
@@ -20,6 +29,7 @@ const Cell = ({ x, y, size, isAlive }: CellProps) => {
       strokeWidth="0.25"
       fill={isAlive === 1 ? '#000' : '#fff'}
       className="grid__cell"
+      onClick={onClick}
     ></rect>
   )
 }
