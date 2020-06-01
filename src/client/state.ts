@@ -1,14 +1,16 @@
 export type CellState = 0 | 1
 type State = Array<Array<CellState>>
 
-export const generateInitialState = (columnsCount: number, rowsCount: number): State => {
+export const generateInitialState = (sizes: [number, number], distributionFunction: () => boolean): State => {
+  const [rowsCount, columnsCount] = sizes
+
   const state: State = []
 
-  for (let i = 0; i < rowsCount; i++) {
+  for (let i = 0; i < columnsCount; i++) {
     state[i] = []
 
-    for (let j = 0; j < columnsCount; j++) {
-      state[i][j] = Math.round(Math.random()) as CellState
+    for (let j = 0; j < rowsCount; j++) {
+      state[i][j] = distributionFunction() ? 1 : 0 as CellState
     } 
   }
 
