@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "strict": true
+  },
+  "include": ["src/client/**/*", "src/server"],
+  "exclude": ["src/server/server.js"]
+}
